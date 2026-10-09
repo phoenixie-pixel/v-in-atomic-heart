@@ -1,0 +1,80 @@
+{
+  "_note": "Design sheets only. Nothing here is built or tested. Cells marked null or 'unverified' must be filled from the installed games before any code is generated.",
+  "project": {
+    "working_title": "V in Atomic Heart",
+    "one_liner": "Play Atomic Heart as V from Cyberpunk 2077, with V's look and cyberware powers.",
+    "host_game": "Atomic Heart (Unreal Engine 4)",
+    "companion_game": "Cyberpunk 2077 (REDengine 4), read from the player's own install, never shipped",
+    "players": "solo only",
+    "publishing": "Blocked on Melty: Atomic Heart is not in Melty's catalog, so it cannot be the host. Distribute by hand until it is added."
+  },
+  "stages": [
+    { "stage": 1, "contents": ["character_model", "sandevistan"], "status": "not started" },
+    { "stage": 2, "contents": ["mantis_blades"], "status": "not started" },
+    { "stage": 3, "contents": ["quickhacks"], "status": "not started" },
+    { "stage": 4, "contents": ["polish: V voice lines, menus, balance"], "status": "not started" }
+  ],
+  "character": [
+    {
+      "id": "character_model",
+      "what": "Replace the player protagonist's visible body with V",
+      "source_asset": "V body/outfit meshes from the player's Cyberpunk 2077 install",
+      "conversion_needed": "REDengine -> UE4 mesh, skeleton and animation retargeting",
+      "ship_in_package": false,
+      "status": "unsolved: conversion route unverified"
+    }
+  ],
+  "powers": [
+    {
+      "id": "sandevistan",
+      "stage": 1,
+      "input": null,
+      "effect": "Slow the world around the player while the player keeps near-normal speed",
+      "duration_s": null,
+      "cooldown_s": null,
+      "energy_cost": null,
+      "hook": "global/world time dilation in UE4",
+      "hook_status": "unverified"
+    },
+    {
+      "id": "mantis_blades",
+      "stage": 2,
+      "input": null,
+      "effect": "Extend arm blades; melee attacks replace the current melee weapon while active",
+      "damage": null,
+      "range": null,
+      "animations_needed": ["extend", "light_attack", "heavy_attack", "retract"],
+      "hook": "equip/melee weapon system and damage application",
+      "hook_status": "unverified"
+    },
+    {
+      "id": "quickhack_short_circuit",
+      "stage": 3,
+      "input": null,
+      "effect": "Damage a targeted robot or enemy over time",
+      "damage_per_s": null,
+      "duration_s": null,
+      "cooldown_s": null,
+      "hook": "target selection + status effects on enemies",
+      "hook_status": "unverified"
+    },
+    {
+      "id": "quickhack_reboot_optics",
+      "stage": 3,
+      "input": null,
+      "effect": "Blind a targeted enemy for a short time",
+      "duration_s": null,
+      "cooldown_s": null,
+      "hook": "enemy perception/AI",
+      "hook_status": "unverified"
+    }
+  ],
+  "game_hooks_to_verify": [
+    { "id": "mod_loader", "needs": "Established Atomic Heart mod route (loader or script extender) found from the installed game", "status": "unverified" },
+    { "id": "player_mesh", "needs": "Where the player character's mesh and skeleton are set", "status": "unverified" },
+    { "id": "input", "needs": "How to add custom key bindings", "status": "unverified" },
+    { "id": "time", "needs": "How to change time scale for everything except the player", "status": "unverified" },
+    { "id": "damage", "needs": "How damage is applied to enemies", "status": "unverified" },
+    { "id": "targeting", "needs": "How to select and highlight enemies for quickhacks", "status": "unverified" }
+  ]
+}
